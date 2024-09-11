@@ -14,7 +14,7 @@ const { Option } = Select;
 const { Search } = Input;
 
 const handleStatusChange = async (cameraId, newStatus) => {
-  console.log("cameraId", cameraId, newStatus);
+  
   try {
     const updatedCamera = await updateCameraStatus(cameraId, newStatus);
     setTableData((prev) =>
@@ -24,6 +24,7 @@ const handleStatusChange = async (cameraId, newStatus) => {
           : camera
       )
     );
+    router.reload();
     console.log("Camera status updated:", updatedCamera);
   } catch (error) {
     console.error("Failed to update camera status:", error);
@@ -128,7 +129,7 @@ export default function Home() {
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-
+  
   useEffect(() => {
     const fetchDataAsync = async () => {
       try {
@@ -199,6 +200,7 @@ export default function Home() {
       <div className="flex justify-center items-center top-5">
         <Newlogo />
       </div>
+      <div className="mx-20">
       <div className="flex justify-between mx-5 p-2">
         <div>
           <h3>Cameras</h3>
@@ -240,7 +242,8 @@ export default function Home() {
           <Option value="Inactive">Inactive</Option>
         </Select>
       </div>
-      <div className="w-100 items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] pt-3">
+      </div>
+      <div className="w-100 items-center justify-items-center min-h-screen gap-16  font-[family-name:var(--font-geist-sans)] pt-1 mx-20">
         <Divider />
         <Table
           rowSelection={{
